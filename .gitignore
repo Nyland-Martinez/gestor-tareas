@@ -1,0 +1,17 @@
+# Node modules 
+node_modules/
+
+# Directorios de construcción
+dist/
+build/
+
+# Archivos de entorno (
+.env
+.env.local
+.env.*.local
+
+# Archivos de configuración de Git y de log
+*.log
+*.lock
+package-lock.json
+yarn.lock
