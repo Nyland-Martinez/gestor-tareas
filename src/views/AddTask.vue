@@ -1,24 +1,34 @@
 <template>
-    <div class="add-task-container">
-        <h1>Añadir Tarea</h1>
-        <div class="input-group">
+    <div class="container my-5 add-task-container">
+        <h1 class="text-center mb-4">Añadir Tarea</h1>
+
+        <!-- Formulario de entrada -->
+        <div class="input-group mb-3">
             <input 
                 v-model="newTask" 
                 @keyup.enter="addTask" 
                 placeholder="Añadir nueva tarea" 
-                class="task-input"
+                class="form-control task-input"
             />
-            <button @click="addTask" class="add-button">Añadir</button>
+            <button @click="addTask" class="btn btn-primary add-button">Añadir</button>
         </div>
-
+        
+        <!-- Lista de tareas -->
         <div v-if="tasks.length > 0" class="task-list">
-            <div v-for="task in tasks" :key="task.id" class="task-item">
-                <span :class="{ completed: task.completed }">{{ task.todo }}</span>
-                <div>
-                    <button @click="toggleTaskCompletion(task)">
-                        {{ task.completed ? 'Desmarcar' : 'Completar' }}
-                    </button>
-                    <button @click="deleteTask(task)">Eliminar</button>
+            <div v-for="task in tasks" :key="task.id" class="card task-item mb-2">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <span :class="{ 'text-decoration-line-through text-muted': task.completed }">
+                        {{ task.todo }}
+                    </span>
+                    <div>
+                        <button 
+                            @click="toggleTaskCompletion(task)" 
+                            class="btn btn-sm btn-outline-success me-2"
+                        >
+                            {{ task.completed ? 'Desmarcar' : 'Completar' }}
+                        </button>
+                        <button @click="deleteTask(task)" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,34 +71,24 @@ export default {
     },
 };
 </script>
-
 <style scoped>
-.add-task-container {
-    padding: 20px;
-    max-width: 400px;
-    margin: 0 auto;
+.container {
+    max-width: 600px;
 }
 
-.input-group {
-    display: flex;
-    margin-bottom: 10px;
+h1 {
+    font-size: 2rem;
+    color: #343a40;
 }
 
 .task-input {
-    flex-grow: 1;
-    padding: 8px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: 1rem;
+    padding: 0.5rem;
 }
 
 .add-button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 .task-list {
@@ -96,15 +96,10 @@ export default {
 }
 
 .task-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.completed {
+.text-decoration-line-through {
     text-decoration: line-through;
-    color: gray;
 }
 </style>
